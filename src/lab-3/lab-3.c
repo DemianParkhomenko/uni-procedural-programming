@@ -1,7 +1,5 @@
 #include <stdbool.h>
 #include <stdio.h>
-#include <string.h>
-#define _CRT_SECURE_NO_WARNINGS
 
 struct Company {
   char name[20];
