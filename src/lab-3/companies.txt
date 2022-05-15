@@ -1,3 +1,4 @@
-{name:x1 foundationYear:100 tax:1 legalAddress:leg1 street, actualAddress:act1 street}
-{name:x2 foundationYear:2000 tax:2 legalAddress:lega2 street, actualAddress:actua2 street}
-{name:x3 foundationYear:30000 tax:3 legalAddress:legal3 street, actualAddress:actual3 street}
+{name:x0, foundationYear:0, tax:2343242, legalAddress:leg 0 street, actualAddress:act 0 street}
+{name:x1, foundationYear:1022, tax:4234234, legalAddress:lega 1 street, actualAddress:actua 1 street}
+{name:x2, foundationYear:2022, tax:465468, legalAddress:legal 2 street, actualAddress:actual 2 street}
+{name:x3, foundationYear:3022, tax:5467578, legalAddress:legal 3 street, actualAddress:actual 3 street}

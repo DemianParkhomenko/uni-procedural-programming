@@ -1,6 +1,8 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
+
+#define indexForDeserialization 3 //* just change it from 0 to 3
 struct Company {
   char name[20];
   int foundationYear;
@@ -9,22 +11,23 @@ struct Company {
   char actualAddress[20];
 };
 const char COMPANY_FORMAT_OUT[] =
-    "{name:%s foundationYear:%d tax:%s legalAddress:%s, "
+    "{name:%s, foundationYear:%d, tax:%s, legalAddress:%s, "
     "actualAddress:%s}\n";
 const char COMPANY_FORMAT_IN[] =
-    "{name:%s foundationYear:%d tax:%s legalAddress:%[0-9a-zA-Z ], "
+    "{name:%[0-9a-zA-Z ], foundationYear:%d, "
+    "tax:%[0-9a-zA-Z ], legalAddress:%[0-9a-zA-Z ], "
     "actualAddress:%[0-9a-zA-Z ]}";
+
 void printCompany(struct Company *pCom);
 void movePointerToSpecificLine(FILE *file, int lineNumber);
 
 int main(int argc, char const *argv[]) {
-  struct Company companies[3] = {
-      {"x1", 100, "1", "leg1 street", "act1 street"},
-      {"x2", 2000, "2", "lega2 street", "actua2 street"},
-      {"x3", 30000, "3", "legal3 street", "actual3 street"}};
-
-  printf("\nInitial structure\n");
-  //   printCompany(&initial);
+  struct Company companies[4] = {
+      {"x0", 0, "2343242", "leg 0 street", "act 0 street"},
+      {"x1", 1022, "4234234", "lega 1 street", "actua 1 street"},
+      {"x2", 2022, "465468", "legal 2 street", "actual 2 street"},
+      {"x3", 3022, "5467578", "legal 3 street", "actual 3 street"},
+  };
 
   FILE *file = fopen("./companies.txt", "w+");
   if (file == NULL) {
@@ -32,19 +35,20 @@ int main(int argc, char const *argv[]) {
     return 1;
   }
 
-  for (int i = 0; i < 3; i++) {
+  printf("\nArray of structures\n");
+  for (int i = 0; i < 4; i++) {
     fprintf(file, COMPANY_FORMAT_OUT, companies[i].name,
             companies[i].foundationYear, companies[i].tax,
             companies[i].legalAddress, companies[i].actualAddress);
+    printCompany(&companies[i]);
   }
 
   struct Company deserialized;
-  int index = 2;
-  movePointerToSpecificLine(file, 2);
+  movePointerToSpecificLine(file, indexForDeserialization + 1);
   fscanf(file, COMPANY_FORMAT_IN, deserialized.name,
          &deserialized.foundationYear, deserialized.tax,
          deserialized.legalAddress, deserialized.actualAddress);
-  printf("\nSerialized structure\n");
+  printf("\nDeserialized structure\n");
   printCompany(&deserialized);
   return 0;
 }
@@ -59,15 +63,17 @@ void printCompany(struct Company *pCom) {
 
 void movePointerToSpecificLine(FILE *file, int lineNumber) {
   fseek(file, 0, SEEK_SET);
+  if (1 == lineNumber) {
+    return;
+  }
   int bytesCounter = 0;
   int linesCounter = 1;
   do {
     bytesCounter++;
     char c = fgetc(file);
     if (feof(file)) {
-      break;
+      return;
     }
-    printf("%c", c);
     if ('}' == c) {
       linesCounter++;
     }
