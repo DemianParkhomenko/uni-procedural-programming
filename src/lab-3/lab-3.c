@@ -5,37 +5,47 @@
 
 struct Company {
   char name[20];
-  int fundationYear;
-  char *tax;
-  char *legalAddress;
-  char *actualAddress;
+  int foundationYear;
+  char tax[20];
+  char legalAddress[20];
+  char actualAddress[20];
 };
-const char *COMPANY_FORMAT_OUT = "(%s,%d,%s,%s,%s)";
-const char *COMPANY_FORMAT_IN = "(%[^,],%d,%[^,],%[^,],%[^,])";
+const char *COMPANY_FORMAT_OUT =
+    "name:%s foundationYear:%d tax:%s legalAddress:%s, actualAddress:%s";
+const char *COMPANY_FORMAT_IN =
+    "name:%s foundationYear:%d tax:%s legalAddress:%[0-9a-zA-Z ], "
+    "actualAddress:%[0-9a-zA-Z ]";
+void printCompany(struct Company *pCom);
 
 int main(int argc, char const *argv[]) {
-  struct Company initial = {
-      .name = "x", .fundationYear = 2022
-      /*   .tax = "8023234238",
-        .legalAddress = "y avenue",
-        .actualAddress = "z avenue", */
-  };
+  struct Company initial = {"x", 2200, "21321332", "y avenue", "z avenue"};
+
+  printf("\nInitial structure\n");
+  printCompany(&initial);
+
   FILE *file = fopen("./initial-company", "w+");
   if (file == NULL) {
     printf("File is not opened.");
     return 1;
   }
-  fprintf(file, COMPANY_FORMAT_OUT, initial.name, initial.fundationYear,
-          initial.tax, initial.legalAddress, initial.actualAddress);
-  fseek(file, 0, SEEK_SET);
 
   struct Company serialized;
-  fscanf(file, COMPANY_FORMAT_IN , serialized.name /* 20,
-         &serialized.fundationYear/* , &serialized.tax, 30,
-         &serialized.legalAddress, 30, &serialized.actualAddress, 3 0*/);
-  printf("initial: %s", initial.name);
+  fprintf(file, COMPANY_FORMAT_OUT, initial.name, initial.foundationYear,
+          initial.tax, initial.legalAddress, initial.actualAddress);
+  fseek(file, 0, SEEK_SET);
+  fscanf(file, COMPANY_FORMAT_IN, serialized.name, &serialized.foundationYear,
+         serialized.tax, serialized.legalAddress, serialized.actualAddress);
 
-  printf("year: %s", serialized.name);
+  printf("\nSerialized structure\n");
+  printCompany(&serialized);
 
   return 0;
+}
+
+void printCompany(struct Company *pCom) {
+  printf("Name: %s\nYear of fundation: %d\nTax number: %s\nLegal address: "
+         "%s\nActual"
+         "address: %s\n\n",
+         pCom->name, pCom->foundationYear, pCom->tax, pCom->legalAddress,
+         pCom->actualAddress);
 }
