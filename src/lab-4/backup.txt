@@ -1,0 +1,3 @@
+{name:x0, foundationYear:0, tax:2343242, legalAddress:leg 0 street, actualAddress:act 0 street}
+{name:x1, foundationYear:1022, tax:4234234, legalAddress:lega 1 street, actualAddress:actua 1 street}
+{name:x2, foundationYear:2022, tax:465468, legalAddress:legal 2 street, actualAddress:actual 2 street}

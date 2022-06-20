@@ -54,7 +54,7 @@ int main(int argc, char const *argv[]) {
 }
 
 void printCompany(struct Company *pCom) {
-  printf("Name: %s\nYear of fundation: %d\nTax number: %s\nLegal address: "
+  printf("Name: %s\nYear of foundation: %d\nTax number: %s\nLegal address: "
          "%s\nActual"
          "address: %s\n\n",
          pCom->name, pCom->foundationYear, pCom->tax, pCom->legalAddress,
