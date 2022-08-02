@@ -188,7 +188,7 @@ int main() {
   printf("%sInitialList: %s\n", ANSI_CYAN, ANSI_RESET);
   printList();
   searchByName("x0");
-  struct Node *foundNode = searchByFoundationYear(3022);
+  struct Node *foundNode = searchByFoundationYear(2022);
   foundNode->value->foundationYear = 1111;
   printf("%sChange foundation year in found node: %s\n", ANSI_CYAN, ANSI_RESET);
   printCompany(foundNode->value);
@@ -199,7 +199,9 @@ int main() {
   printList();
 
   serializeList();
+  //!!free list
   freeList();
+  //!!free list
   printf("%sList after serialization/deserialization.%s\n", ANSI_CYAN,
          ANSI_RESET);
   deSerializeList();
