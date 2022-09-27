@@ -201,7 +201,6 @@ int main() {
   serializeList();
   //!!free list
   freeList();
-  //!!free list
   printf("%sList after serialization/deserialization.%s\n", ANSI_CYAN,
          ANSI_RESET);
   deSerializeList();
