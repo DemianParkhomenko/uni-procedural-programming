@@ -7,11 +7,11 @@
 #define pathToTxtFile "./lab1.txt"
 #define pathToBakFile "./lab1.bak"
 
-bool fprintfCLIArray(int argc, char *argv[], int size, FILE *destination);
-void doBackup(FILE *fromFile, FILE *toFile);
+bool fprintfCLIArray(int argc, char* argv[], int size, FILE* destination);
+void doBackup(FILE* fromFile, FILE* toFile);
 
-int main(int argc, char *argv[]) {
-  FILE *initial, *backup;
+int main(int argc, char* argv[]) {
+  FILE* initial, * backup;
 
   initial = fopen(pathToTxtFile, "a");
   bool isSuccessful = fprintfCLIArray(argc, argv, sizeOfCLIArray, initial);
@@ -27,7 +27,7 @@ int main(int argc, char *argv[]) {
   fclose(backup);
 }
 
-bool fprintfCLIArray(int argc, char *argv[], int size, FILE *toFile) {
+bool fprintfCLIArray(int argc, char* argv[], int size, FILE* toFile) {
   if (argc - 1 != size * size) {
     printf("Wrong CLI agruments\n");
     return false;
@@ -43,11 +43,11 @@ bool fprintfCLIArray(int argc, char *argv[], int size, FILE *toFile) {
   return true;
 }
 
-void doBackup(FILE *fromFile, FILE *toFile) {
+void doBackup(FILE* fromFile, FILE* toFile) {
   const char RED[] = "\033[0;31m", GREEN[] = "\033[0;32m", RESET[] = "\033[0m";
   if (fromFile == NULL || toFile == NULL) {
     printf("%sError: A wrong directory of the file. Backup is failed.\n%s", RED,
-           RESET);
+      RESET);
     return;
   }
   char ch;

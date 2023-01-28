@@ -4,14 +4,14 @@
 void checkAllocation();
 
 void task1();
-void removeElements(int *array, int startsFrom, int howMuchDelete);
-void printArray1D(int *array, int length, char *message);
+void removeElements(int* array, int startsFrom, int howMuchDelete);
+void printArray1D(int* array, int length, char* message);
 
 void task2();
-void printArray2D(int **array, int rows, int columns, char *message);
-void markArrayPointers(int **array, int rows, int columns);
+void printArray2D(int** array, int rows, int columns, char* message);
+void markArrayPointers(int** array, int rows, int columns);
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
   task1();
   task2();
 }
@@ -20,7 +20,7 @@ void task1() {
   int length;
   printf("Task 1. Enter length of the array:");
   scanf("%i", &length);
-  int *array = (int *)malloc(sizeof(int) * length * 1.2);
+  int* array = (int*)malloc(sizeof(int) * length * 1.2);
   checkAllocation(array, "Task 1. Array is not allocated.\n");
 
   for (int i = 0; i < length; ++i) {
@@ -45,7 +45,7 @@ void task1() {
       array[i] = array[i + 1];
     }
     length -= 1;
-  }  
+  }
   printArray1D(array, length, "Result array --> ");
   free(array);
 }
@@ -53,10 +53,10 @@ void task1() {
 void task2() {
   printf("Task 2\n");
   int rows = 3, columns = 4;
-  int **array;
+  int** array;
 
-  int memory = sizeof(int *) * rows + sizeof(int) * columns * rows;
-  array = (int **)malloc(memory);
+  int memory = sizeof(int*) * rows + sizeof(int) * columns * rows;
+  array = (int**)malloc(memory);
   checkAllocation(array, "Task 2. Array is not allocated.\n");
   markArrayPointers(array, rows, columns);
 
@@ -70,7 +70,7 @@ void task2() {
 
   columns += 1;
   memory += sizeof(int) * rows;
-  array = (int **)realloc(array, memory);
+  array = (int**)realloc(array, memory);
   checkAllocation(array, "Task 2. Array is not allocated.\n");
   markArrayPointers(array, rows, columns);
   printArray2D(array, rows, columns, "realloc:\n");
@@ -92,21 +92,21 @@ void task2() {
 }
 
 //*   for loop to point rows pointer to appropriate location in 2D array
-void markArrayPointers(int **array, int rows, int columns) {
-  int *ptrFirstElement = (int *)(array + rows);
+void markArrayPointers(int** array, int rows, int columns) {
+  int* ptrFirstElement = (int*)(array + rows);
   for (int i = 0; i < rows; i++) {
     array[i] = (ptrFirstElement + columns * i);
   }
 }
 
-void checkAllocation(int *pointer, char *errorMessage) {
+void checkAllocation(int* pointer, char* errorMessage) {
   if (NULL == pointer) {
     printf("Allocation failed.\n %s", errorMessage);
     exit(1);
   }
 }
 
-void printArray1D(int *array, int length, char *message) {
+void printArray1D(int* array, int length, char* message) {
   printf("%s", message);
   for (int i = 0; i < length; i++) {
     printf("%i ", array[i]);
@@ -114,7 +114,7 @@ void printArray1D(int *array, int length, char *message) {
   printf("\n");
 }
 
-void printArray2D(int **array, int rows, int columns, char *message) {
+void printArray2D(int** array, int rows, int columns, char* message) {
   printf("%s", message);
   for (int i = 0; i < rows; i++) {
     for (int j = 0; j < columns; j++) {
